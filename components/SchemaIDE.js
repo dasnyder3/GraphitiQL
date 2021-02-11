@@ -74,13 +74,23 @@ const SchemaIDE = (props) => {
         writeSchema(generateAllTypes(tables));
     }
 
+    const downloadCode = () => {
+        const url = window.URL.createObjectURL(new Blob([schema]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'schema.js');
+        document.getElementById('ide').appendChild(link);
+        link.click();
+    }
+
     return (
         <div id='ide' >
 
             <div className='sidebar' >
 
                 <div id='gql'><h1>GraphQL</h1><h2>Query</h2></div>
-                <button onClick={()=>navigator.clipboard.writeText(schema)}>Copy</button>
+                {/* <button onClick={()=>navigator.clipboard.writeText(schema)}>Copy</button> */}
+                <button onClick={downloadCode} id="download-button">Download Code</button>
                 <pre><code>{schema}</code></pre>
 
             </div>
