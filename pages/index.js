@@ -107,7 +107,7 @@ const Home = (props) => {
              />
            </div>
            </div>) : <div/>}
-          <style jsx>{`
+          {/* <style jsx>{`
 
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;700;900&display=swap');
 
@@ -322,7 +322,7 @@ const Home = (props) => {
               margin-left: 32px;
             }
 
-          `}</style>
+          `}</style> */}
             
         </div>
     );
