@@ -7,11 +7,92 @@ import Header from '../components/icons/Header.js';
 import DiagramSideBar from '../components/diagrams/DiagramSidebar.js';
 import DiagramNavbar from '../components/diagrams/DiagramNavbar.js';
 import DiagramModal from '../components/diagrams/DiagramModal.js';
+import { useQuery, gql } from '@apollo/client';
+// import { GET_ALL_DIAGRAMS } from '../lib/queries';
+
+const GET_ALL_DIAGRAMS = gql`query {
+  diagrams {
+    user {
+      oAuthId
+      oAuthData {
+        username
+        photos {
+          value
+        }
+      }
+    }
+    diagramName
+    reactFlowData {
+      position
+      zoom
+      tables {
+        id
+        type
+        data {
+          label {
+            type
+            key
+            ref
+            props {
+              children {
+                type
+                key
+                ref
+                props {
+                  id
+                  nodeid
+                  tablename
+                  columns {
+                    name
+                    dataType
+                    required
+                    primaryKey
+                  }
+                }
+                _owner
+                _store
+              }
+            }
+            _owner
+            _store
+          }
+        }
+        position {
+          x
+          y
+        }
+        targetPosition
+        sourcePosition
+      }
+      connections {
+        id
+        source
+        sourceHandle
+        target
+        targetHandle
+        animated
+        style {
+          stroke
+          strokeWidth
+        }
+        type
+      }
+    }
+  }
+}`
 
 const Diagrams = (props) => {
 
   const [newDiagram, setNewDiagram] = useState(false)
   const [pageLoading, setPageLoading] = useState(false);
+
+  const { loading, error, data } = useQuery(GET_ALL_DIAGRAMS);
+
+  useEffect(() => {
+    console.log(loading);
+    console.log(error);
+    console.log(data);
+  }, [data, loading, error]);
 
   const sidebar = <DiagramSideBar />
 
